@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 import authRoute from "./routes/authRoute.js";
 import cookieParser from "cookie-parser";
 import productRoute from "./routes/productRoute.js";
@@ -13,6 +14,7 @@ dotenv.config({
   path: ".env",
 });
 connectionToMongoDb();
+app.use(cors());
 app.use(cookieParser());
 app.use(
   express.urlencoded({

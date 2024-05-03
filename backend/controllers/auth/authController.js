@@ -51,7 +51,7 @@ const userLogin = async (req, res, next) => {
       email: user.email,
       verified: user.verified,
       address: user.address,
-      role:user.role,
+      role: user.role,
     };
     if (!user) {
       return res.status(500).json({
@@ -59,7 +59,7 @@ const userLogin = async (req, res, next) => {
       });
     }
     const token = await jwt.sign(tokenData, process.env.SECRET_KEY);
-    res.status(202).cookie("token", token).json({
+    res.status(202).cookie("token", token, { httpOnly: true }).json({
       message: "User logged in successfully",
       profile: tokenData,
     });
