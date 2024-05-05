@@ -1,8 +1,15 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Home = () => {
   return (
-    <div>home</div>
+    <div>home
+ 
+  <Link to={"/"}>home</Link>
+  <Link to={"/shop"}>shop</Link>
+  <Link to={"/Log-in"}>Login</Link>
+  <Link to={"/profile"}>profile</Link>
+    </div>
   )
 }
 

@@ -1,20 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import axios from "axios";
-// import Cookies from "universal-cookie";
+import { useDispatch } from "react-redux";
+import { LoginUserSlice } from "../features/userSlice";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
-  const [isLogin, setIsLogin] = useState(false);
-  useEffect(() => {
-    const value = `${document.cookie}`;
-    console.log(value);
-  }, [isLogin]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  useLayoutEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) {      
+      dispatch(LoginUserSlice(JSON.parse(user)));     
+      navigate("/shop"); 
+    }
+  },[]);
   const onSubmit = async () => {
     const response = await axios.post("/api/v1/auth/login", {
       email: "suraj@gmail.com",
       password: "12345678",
     });
-    console.log(response.data);
-    setIsLogin(true);
+    dispatch(LoginUserSlice(response.data.profile));
+    localStorage.setItem("user", JSON.stringify(response.data.profile));
+    navigate("/shop");
   };
   return (
     <div>
