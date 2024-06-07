@@ -6,8 +6,8 @@ import {
   getOrderById,
 } from "../controllers/common/orderController.js";
 const router = express.Router();
-router.get("/",getAllOrders);
+router.get("/user/:id",getAllOrders);
 router.post("/add-order", addOrder);
 router.post("/delete-order/:id", deleteOrder);
-router.post("/:id", getOrderById);
+router.get("/:id", getOrderById);
 export default router;

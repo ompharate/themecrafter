@@ -13,7 +13,7 @@ const isAdmin = async (req, res, next) => {
       message: "Unauthorized token invalid",
     });
   }
-  console.log(userData.role);
+ 
   if (userData.role !== "admin") {
     return res.status(401).json({
       message: "Unauthorized access",

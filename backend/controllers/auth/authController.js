@@ -26,6 +26,7 @@ const userRegister = async (req, res, next) => {
 
     return res.status(201).json({
       message: "User registered successfully",
+      user:user
     });
   } catch (error) {
     return res.status(500).json({
@@ -59,7 +60,7 @@ const userLogin = async (req, res, next) => {
       });
     }
     const token = await jwt.sign(tokenData, process.env.SECRET_KEY);
-    res.status(202).cookie("token", token, { httpOnly: true }).json({
+    res.cookie("token", token, { httpOnly: true }).status(202).json({
       message: "User logged in successfully",
       profile: tokenData,
     });

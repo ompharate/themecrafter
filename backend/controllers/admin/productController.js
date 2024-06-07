@@ -1,3 +1,4 @@
+import { escapeRegex } from "../../config/utils.js";
 import Product from "../../models/productSchema.js";
 
 const addProduct = async (req, res) => {
@@ -36,7 +37,7 @@ const addProduct = async (req, res) => {
 
 const deleteProduct = async (req, res) => {
   const id = req.params.id;
-  console.log(id);
+
   const product = await Product.findByIdAndDelete(id);
 
   return res.status(201).json({
@@ -52,6 +53,27 @@ const getAllProducts = async (req, res) => {
   });
 };
 
+
+const getProductsByKey = async (req, res) => {
+  const key = req.query.key;
+  if (key=="null") {    
+    const products = await Product.find();
+    return res.status(200).json({
+      message: "Product fetched successfully",
+      products: products,
+    });
+  } else {
+  
+    const escapedQuery = escapeRegex(key);
+    const regex = new RegExp(escapedQuery, "i");
+    const products = await Product.find({ name: { $regex: regex } });
+    return res.status(200).json({
+      message: "Product fetched successfully",
+      products: products,
+    });
+  }
+};
+
 const getProductById = async (req, res) => {
   const productId = req.params.id;
   const product = await Product.findById(productId);
@@ -61,4 +83,10 @@ const getProductById = async (req, res) => {
   });
 };
 
-export { addProduct, deleteProduct ,getAllProducts ,getProductById};
+export {
+  addProduct,
+  deleteProduct,
+  getAllProducts,
+  getProductById,
+  getProductsByKey,
+};
