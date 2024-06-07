@@ -19,7 +19,7 @@ dotenv.config({
 
 connectionToMongoDb();
 
-const instance = new Razorpay({
+export const instance = new Razorpay({
   key_id: "rzp_test_nRsfAul0gFmA3M",
   key_secret: "mpxjpZAjKqm8YvuAjUHKFruC",
 });
