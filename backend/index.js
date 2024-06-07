@@ -32,7 +32,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: "https://opthemestore.vercel.app,
   methods: ["GET", "POST"],
   credentials: true,
 };
