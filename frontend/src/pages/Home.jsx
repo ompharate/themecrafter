@@ -20,7 +20,7 @@ const Home = () => {
         <div className="flex  p-5 justify-between items-center">
           <div>
             <h1 className="text-2xl font-semibold cursor-pointer text-white">
-              <Link to={"/"}>OpThemeStore</Link>
+              <Link to={"/"}>ThemeCrafter</Link>
             </h1>
           </div>
           <div>
