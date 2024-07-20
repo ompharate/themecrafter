@@ -38,7 +38,7 @@ app.use(cors(corsOptions));
 
 // Routes
 app.get("/", (req, res) => {
-  res.send("Hello server is running");
+  res.send("Hello word");
 });
 
 app.use("/api/v1/auth", authRoute);
