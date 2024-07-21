@@ -8,7 +8,7 @@ const Home = () => {
       <div
         style={{
 
-          backgroundImage:  'url("/public/shape.svg")',
+          backgroundImage:  'url("https://themecrafter.vercel.app/shape.svg")',
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundPosition: "center",
