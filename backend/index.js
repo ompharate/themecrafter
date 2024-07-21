@@ -28,13 +28,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-const corsOptions = {
-  origin: "http://localhost:5173",
-  methods: ["GET", "POST"],
-  credentials: true, // Corrected typo here
-};
+// const corsOptions = {
+//   origin: "http://localhost:5173",
+//   methods: ["GET", "POST"],
+//   credentials: true, // Corrected typo here
+// };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 // Routes
 app.get("/", (req, res) => {
