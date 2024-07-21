@@ -1,0 +1,17 @@
+version: '3'
+services:
+  frontend:
+    build:
+      context: "./frontend"  
+      dockerfile: dockerfile
+    ports:
+      - 5173:5173
+    container_name: react-container
+    networks:
+      - mern-stack-network
+    volumes:
+      - ./frontend:/app
+    depends_on:
+      - backend
+      
+    
