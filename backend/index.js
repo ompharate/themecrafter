@@ -22,6 +22,12 @@ dotenv.config({
   path: ".env",
 });
 
+const corsOptions = {
+    origin: "https://themecrafter.vercel.app",
+    methods: ["GET", "POST"],
+    credentials: true, // Corrected typo here 
+  };
+
 connectionToMongoDb();
 
 // Middleware
