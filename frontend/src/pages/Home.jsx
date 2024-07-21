@@ -219,7 +219,7 @@ const Home = () => {
               </div>
             </div>
             <div>
-              <img className="p-2" width={800} height={400} src="/public/screen.png" />
+              <img className="p-2" width={800} height={400} src="https://themecrafter.vercel.app/screen.png" />
               <div class="flex flex-col bg-white rounded-3xl">
                 <div class="px-8 py-9 sm:p-10 sm:pb-6">
                   <div class="grid items-center justify-center w-full grid-cols-1 text-left">
