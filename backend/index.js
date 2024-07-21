@@ -24,10 +24,9 @@ dotenv.config({
 
 const corsOptions = {
     origin: "https://themecrafter.vercel.app",
-    methods: ["GET", "POST"],
-    credentials: true, // Corrected typo here 
+    credentials: true,
   };
-
+app.use(cors(corsOptions));
 connectionToMongoDb();
 
 // Middleware
