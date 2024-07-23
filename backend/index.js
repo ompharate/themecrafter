@@ -36,7 +36,7 @@ app.use(cookieParser());
 
 // Routes
 app.get("/", (req, res) => {
-  res.send("Hello world");
+  res.send("Hello world its running!!");
 });
 
 app.use("/api/v1/auth", authRoute);
