@@ -40,7 +40,7 @@ const Cart = () => {
   const makeOrder = async () => {
     const {
       data: { order },
-    } = await axios.post("http://localhost:8080/api/v1/payment/checkout", {
+    } = await axios.post(`${BASE_URL}/api/v1/payment/checkout`, {
       amount: totalPrice,
     });
 
@@ -53,7 +53,7 @@ const Cart = () => {
       image:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOmUVRI0eW9Ji_xoi0ItEbWGqxJI66oVDsRA&s",
       order_id: order.id,
-      callback_url: "http://localhost:8080/api/v1/payment/paymentverification",
+      callback_url: `${BASE_URL}/api/v1/payment/paymentverification`,
       prefill: {
         name: user.name,
         email: user.email,
