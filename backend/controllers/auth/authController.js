@@ -60,7 +60,7 @@ const userLogin = async (req, res, next) => {
       });
     }
     const token = await jwt.sign(tokenData, process.env.SECRET_KEY);
-    res.cookie("token", token, { httpOnly: true }).status(202).json({
+    res.cookie("token", token,).status(202).json({
       message: "User logged in successfully",
       profile: tokenData,
     });
