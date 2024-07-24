@@ -56,14 +56,17 @@ const getAllProducts = async (req, res) => {
 
 const getProductsByKey = async (req, res) => {
   const key = req.query.key;
+  console.log("key:is ",key);
   if (key=="null") {    
+    console.log("comming to null",key);
     const products = await Product.find();
     return res.status(200).json({
       message: "Product fetched successfully",
       products: products,
     });
   } else {
-  
+    
+    console.log("comming to else",key);
     const escapedQuery = escapeRegex(key);
     const regex = new RegExp(escapedQuery, "i");
     const products = await Product.find({ name: { $regex: regex } });
