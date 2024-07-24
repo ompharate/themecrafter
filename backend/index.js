@@ -34,7 +34,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-// Routes
+
 app.get("/", (req, res) => {
   res.send("Hello world its running!!");
 });
@@ -44,7 +44,6 @@ app.use("/api/v1/product", isUser, productRoute);
 app.use("/api/v1/order", isUser, orderRouter);
 app.use("/api/v1/payment", paymentRouter);
 
-// Error handling middleware
 app.use(function (error, req, res, next) {
   res.status(error.status || 500).json({
     message: error.message,
@@ -52,5 +51,4 @@ app.use(function (error, req, res, next) {
   });
 });
 
-// Export the app instance for Vercel
 export default app;

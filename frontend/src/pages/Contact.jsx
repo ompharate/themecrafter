@@ -7,7 +7,7 @@ const Contact = () => {
       <div className="flex  p-5 justify-between items-center">
         <div>
           <h1 className="text-2xl font-semibold cursor-pointer">
-            <Link to={"/"}>OpThemeStore</Link>
+            <Link to={"/"}>Themecrafter</Link>
           </h1>
         </div>
         <div>

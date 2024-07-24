@@ -35,7 +35,7 @@ const Login = () => {
     <div className="flex flex-col justify-center items-center h-[100vh] bg-[#7747ff]">
       <div className="max-w-2xl relative flex flex-col p-10 rounded-md text-black bg-white">
         <div className="text-4xl font-bold mb-2 text-[#1e0e4b] text-center">
-          Welcome back to <span className="text-[#7747ff]">OpThemeStore</span>
+          Welcome back to <span className="text-[#7747ff]">Themecrafter</span>
         </div>
         <div className="text-sm font-normal mb-4 text-center text-[#1e0e4b]">
           Log in to your account

@@ -37,7 +37,7 @@ const Signup = () => {
  
       <div className="max-w-2xl relative flex flex-col p-10 rounded-md text-black bg-white">
         <div className="text-4xl font-bold mb-2 text-[#1e0e4b] text-center">
-          Welcome to <span className="text-[#7747ff]">OpThemeStore</span>
+          Welcome to <span className="text-[#7747ff]">Themecrafter</span>
         </div>
         <div className="text-sm font-normal mb-4 text-center text-[#1e0e4b]">
           Sign-up to continue

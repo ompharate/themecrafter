@@ -48,7 +48,7 @@ const Cart = () => {
       key: "rzp_test_nRsfAul0gFmA3M",
       amount: order.amount,
       currency: "INR",
-      name: "opThemeStore",
+      name: "Themecrafter",
       description: "Tutorial of RazorPay",
       image:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOmUVRI0eW9Ji_xoi0ItEbWGqxJI66oVDsRA&s",
@@ -108,7 +108,7 @@ const Cart = () => {
           </div>
           <div className="flex gap-2 flex-col bg-slate-300 p-10 rounded-md">
             <div>
-              <h1 className="text-2xl">OpThemeStore</h1>
+              <h1 className="text-2xl">Themecrafter</h1>
             </div>
             <div className="border-white w-[100%] border-t-2"></div>
             <div className="flex flex-col">
