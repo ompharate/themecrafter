@@ -11,21 +11,20 @@ import isUser from "./middlewares/userAuth.js";
 import Razorpay from "razorpay";
 import paymentRouter from "./routes/paymentRotue.js";
 
+dotenv.config({
+  path: ".env",
+});
 export const instance = new Razorpay({
-  key_id: "rzp_test_nRsfAul0gFmA3M",
-  key_secret: "mpxjpZAjKqm8YvuAjUHKFruC",
+  key_id: process.env.razorpay_id,
+  key_secret: process.env.key_secret,
 });
 
 const app = express();
 
-dotenv.config({
-  path: ".env",
-});
-
 const corsOptions = {
-    origin: "https://themecrafter.vercel.app",
-    credentials: true,
-  };
+  origin: "https://themecrafter.vercel.app",
+  credentials: true,
+};
 app.use(cors(corsOptions));
 connectionToMongoDb();
 
@@ -33,7 +32,6 @@ connectionToMongoDb();
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
-
 
 app.get("/", (req, res) => {
   res.send("Hello world its running!!");

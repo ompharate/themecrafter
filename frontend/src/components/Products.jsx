@@ -17,7 +17,6 @@ const Products = ({ searchKey = null }) => {
           headers: {
             "Content-Type": "application/json",
           },
-          // withCredentials: true,
         }
       );
       setAllProducts(allProducts.data.products);
@@ -25,7 +24,8 @@ const Products = ({ searchKey = null }) => {
     };
     getAllProducts();
   }, [searchKey]);
- 
+
+  console.log(allProducts);
   return (
     <div className="container mx-auto mt-10">
       {isLoading ? (
@@ -33,7 +33,7 @@ const Products = ({ searchKey = null }) => {
           <Loader />
         </div>
       ) : (
-        <div className="mt-10  flex  gap-20 justify-center  flex-wrap ">
+        <div className="mt-10 flex gap-20 justify-center  flex-wrap ">
           {allProducts.map((product, index) => (
             <div
               className="w-[380px] border bg-white rounded-lg shadow-2xl hover:shadow-slate-700 cursor-pointer"
@@ -46,7 +46,7 @@ const Products = ({ searchKey = null }) => {
               </div>
               <div className="">
                 <img
-                  className="w-[100%] h-[280px] object-fill"
+                  className="object-cover"
                   src={product.imageUrl}
                 />
               </div>

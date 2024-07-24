@@ -66,6 +66,7 @@ const Profile = () => {
                 type="button"
                 onClick={() => {
                   localStorage.removeItem("user");
+                  localStorage.removeItem("token");
                   dispatch(LogoutUserSlice());
                   Navigate("/Log-in");
                 }}

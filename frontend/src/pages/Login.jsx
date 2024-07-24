@@ -9,9 +9,9 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
   useLayoutEffect(() => {
     const user = localStorage.getItem("user");
     if (user) {
@@ -20,16 +20,23 @@ const Login = () => {
     }
   }, []);
   const onSubmit = async () => {
-    const response = await axios.post(`${BASE_URL}/api/v1/auth/login`, {
-      email: email,
-      password: password,
-    },{
-      withCredentials:true
-    });
-  
-    dispatch(LoginUserSlice(response.data.profile.user));
-    localStorage.setItem("user", JSON.stringify(response.data.profile));
-    navigate("/shop");
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/api/v1/auth/login`,
+        {
+          email: email,
+          password: password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      dispatch(LoginUserSlice(response.data.profile.user));
+      localStorage.setItem("user", JSON.stringify(response.data.profile));
+      navigate("/shop");
+    } catch (error) {
+      setError(true);
+    }
   };
   return (
     <div className="flex flex-col justify-center items-center h-[100vh] bg-[#7747ff]">
@@ -40,7 +47,7 @@ const Login = () => {
         <div className="text-sm font-normal mb-4 text-center text-[#1e0e4b]">
           Log in to your account
         </div>
-     
+
         <div className="block relative">
           <label
             htmlFor="email"
@@ -51,7 +58,7 @@ const Login = () => {
           <input
             type="text"
             id="email"
-            onChange={(e)=>setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             className="rounded border border-gray-200 text-base w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-13 m-0 p-[18px] focus:ring-2 ring-offset-2  ring-gray-900 outline-0"
           ></input>
         </div>
@@ -65,23 +72,25 @@ const Login = () => {
           <input
             type="text"
             id="password"
-            onChange={(e)=>setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             className="rounded border border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-13 m-0 p-[18px] focus:ring-2 ring-offset-2 ring-gray-900 outline-0"
           ></input>
         </div>
-        <div>
-          <Link to={"/Log-in"} className="text-sm text-[#7747ff]" href="#">
-            Forgot your password?
-          </Link>
+        <div className="py-2 px-2">
+          <p className="text-red-400">
+            {error
+              ? "Username and password does not match an account in our system. Please"
+              : null}
+          </p>
         </div>
         <button
-        onClick={onSubmit}
+          onClick={onSubmit}
           type="submit"
           className="bg-[#7747ff] w-max m-auto px-8 py-4 rounded text-white text-base font-normal"
         >
           Login
         </button>
-       
+
         <div className="text-sm text-center mt-[1.6rem]">
           Don’t have an account yet?{" "}
           <Link className="text-sm text-[#7747ff]" to={"/sign-up"}>

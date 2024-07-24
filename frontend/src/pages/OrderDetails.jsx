@@ -16,11 +16,12 @@ const OrderDetails = () => {
       const response = await axios.get(`${BASE_URL}/api/v1/order/${id}`, {
         withCredentials: true,
       });
-      
+
       setProducts(response.data.data[0].products);
       setLoading(false);
     };
     getOrder();
+    setLoading(false);
   }, []);
 
   return (
@@ -36,6 +37,7 @@ const OrderDetails = () => {
         </div>
       ) : (
         <>
+          {products.length <= 0 ? <div className="text-3xl text-center font-semibold my-5 text-red-500">No Orders found</div> : null}
           {products.map((product) => (
             <div className="flex justify-center  rounded-sm">
               <div className="flex justify-between w-[100%] p-12">
@@ -85,7 +87,6 @@ const OrderDetails = () => {
           ))}
         </>
       )}
-   
     </div>
   );
 };
