@@ -20,7 +20,7 @@ const Login = () => {
     }
   }, []);
   const onSubmit = async () => {
-    try {
+    // try {
       const response = await axios.post(
         `${BASE_URL}/api/v1/auth/login`,
         {
@@ -34,9 +34,9 @@ const Login = () => {
       dispatch(LoginUserSlice(response.data.profile.user));
       localStorage.setItem("user", JSON.stringify(response.data.profile));
       navigate("/shop");
-    } catch (error) {
-      setError(true);
-    }
+    // } catch (error) {
+      // setError(true);
+    // }
   };
   return (
     <div className="flex flex-col justify-center items-center h-[100vh] bg-[#7747ff]">
