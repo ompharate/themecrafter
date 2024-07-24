@@ -26,7 +26,7 @@ const userRegister = async (req, res, next) => {
 
     return res.status(201).json({
       message: "User registered successfully",
-      user:user
+      user: user,
     });
   } catch (error) {
     return res.status(500).json({
@@ -60,10 +60,13 @@ const userLogin = async (req, res, next) => {
       });
     }
     const token = await jwt.sign(tokenData, process.env.SECRET_KEY);
-    res.cookie("token", token).status(202).json({
-      message: "User logged in successfully",
-      profile: tokenData,
-    });
+    res
+      .cookie("token", token, { httpOnly: true, secure: true })
+      .status(202)
+      .json({
+        message: "User logged in successfully",
+        profile: tokenData,
+      });
   } catch (error) {
     return res.status(500).json({
       message: "Something went wrong",

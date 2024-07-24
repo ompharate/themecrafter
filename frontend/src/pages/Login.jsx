@@ -20,6 +20,7 @@ const Login = () => {
     }
   }, []);
   const onSubmit = async () => {
+    axios.defaults.withCredentials = true;
     try {
       const response = await axios.post(
         `${BASE_URL}/api/v1/auth/login`,
