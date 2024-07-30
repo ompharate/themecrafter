@@ -1,6 +1,5 @@
 
 ## ✨ Features
-
 - 🛡️ User Authentication with Email and password
 - 🎨 User can explore themes
 - 💳 Payment Integration with Razprpay
