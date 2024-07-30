@@ -5,11 +5,11 @@ import Loader from "./Loader";
 import { BASE_URL } from "../utils/constants";
 
 const Products = ({ searchKey = null }) => {
-  axios.defaults.withCredentials = true;
   const [isLoading, setIsLoading] = useState(false);
   const [allProducts, setAllProducts] = useState([]);
   useEffect(() => {
     const getAllProducts = async () => {
+      axios.defaults.withCredentials = true;
       setIsLoading(true);
       const allProducts = await axios.get(
         `${BASE_URL}/api/v1/product/search?key=${searchKey}`,
