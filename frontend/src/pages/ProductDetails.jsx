@@ -38,7 +38,7 @@ const productDetails = () => {
           {product.name}
         </h1>
         <div className="border-slate-300 w-[70%] border-t-2"></div>
-        <Navbar />
+     
       </div>
       {loading ? (
         <div className="flex justify-center flex-row  items-center h-[50vh]">

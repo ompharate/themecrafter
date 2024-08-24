@@ -1,16 +1,15 @@
 import User from "../../models/userSchema.js";
-import jwt from "jsonwebtoken";
 const userRegister = async (req, res, next) => {
-  const { name, email, password } = req.body;
+  const { username, id } = req.body;
 
-  if (!name || !email || !password) {
+  if (!username || !id) {
     return res.status(500).json({
-      message: "Invalid username or password",
+      message: "missing username or password",
     });
   }
 
   try {
-    const isUserPresent = await User.findOne({ email });
+    const isUserPresent = await User.findById(id);
     if (isUserPresent) {
       return res.status(500).json({
         message: "User already exists with this email",
@@ -18,9 +17,8 @@ const userRegister = async (req, res, next) => {
     }
 
     const user = new User({
-      name,
-      email,
-      password,
+      id,
+      username: username,
     });
     user.save();
 
@@ -36,7 +34,7 @@ const userRegister = async (req, res, next) => {
   }
 };
 
-const userLogin = async (req, res, next) => {
+const adminLogin = (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
     return res.status(500).json({
@@ -44,39 +42,7 @@ const userLogin = async (req, res, next) => {
     });
   }
 
-  try {
-    const user = await User.findOne({ email: email, password: password });
-    const tokenData = {
-      name: user.name,
-      _id: user.id,
-      email: user.email,
-      verified: user.verified,
-      address: user.address,
-      role: user.role,
-    };
-    if (!user) {
-      return res.status(500).json({
-        message: " username or password",
-      });
-    }
-    const token = await jwt.sign(tokenData, process.env.SECRET_KEY);
-    res
-      .cookie("token", token, {
-        expiresIn: "1d",
-        httpOnly: true,
-        secure: true,
-        sameSite: "none",
-      })
-      .status(202)
-      .json({
-        message: "User logged in successfully",
-        profile: tokenData,
-      });
-  } catch (error) {
-    return res.status(500).json({
-      message: "Something went wrong",
-      error: error.message,
-    });
-  }
+  return true;
 };
-export { userRegister, userLogin };
+
+export { userRegister, adminLogin };

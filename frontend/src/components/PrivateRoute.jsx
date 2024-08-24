@@ -1,26 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react";
 import { Navigate } from "react-router-dom";
-import { LoginUserSlice } from "../features/userSlice";
-
+import { useAuth } from "@clerk/clerk-react";
+import Loader from "./Loader";
 const PrivateRoute = ({ children }) => {
-  const dispatch = useDispatch();
-  const isLogin = useSelector((state) => state.user.isLogin);
-  const [checkingLogin, setCheckingLogin] = useState(true);
-
-  useEffect(() => {
-    const user = localStorage.getItem("user");
-    if (user) {
-      dispatch(LoginUserSlice(JSON.parse(user)));
-    }
-    setCheckingLogin(false);
-  }, [dispatch]);
-
-  if (checkingLogin) {
-    return null;
+  const { isSignedIn, isLoaded } = useAuth();
+  if (!isLoaded && !isSignedIn) {
+    return <Loader />;
   }
-
-  return isLogin ? children : <Navigate to="/Log-in" />;
+  return isSignedIn ? children : <Navigate to="/sign-in" />;
 };
-
 export default PrivateRoute;

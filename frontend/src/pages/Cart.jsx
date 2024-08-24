@@ -74,7 +74,7 @@ const Cart = () => {
       <div className="flex justify-between p-12 items-center bg-slate-200 ">
         <h1 className="text-4xl font-semibold text-[#7747ff]">Cart</h1>
         <div className="border-slate-300 w-[70%] border-t-2"></div>
-        <Navbar selectedItem={"cart"} />
+      
       </div>
 
       {cart.length <= 0 ? (

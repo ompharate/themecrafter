@@ -5,6 +5,10 @@ const ProductSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    category: {
+      type: String,
+      required: true,
+    },
     description: {
       type: String,
       required: true,
@@ -13,13 +17,11 @@ const ProductSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    tags: {
-      type: [String],
-      default: [],
-    },
     imageUrl: {
       type: String,
       required: true,
+      default:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7bST8hvF8-TywIeuju3n4fhxvcEL9Bu3KhQ&s",
     },
     demoUrl: {
       type: String,
