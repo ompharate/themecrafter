@@ -1,118 +1,97 @@
-import { BRAND } from '../../types/brand';
+import { Link, useNavigate } from 'react-router-dom';
 
+interface ProductType {
+  _id: string;
+  name: string;
+  price: number;
+  description: string;
+  imageUrl: string;
+  demoUrl: string;
+  downloadUrl: string;
+  category: string;
+}
 
-const brandData: BRAND[] = [
-  {
-    logo: "BrandOne",
-    name: 'Google',
-    visitors: 3.5,
-    revenues: '5,768',
-    sales: 590,
-    conversion: 4.8,
-  },
-  {
-    logo: "BrandTwo",
-    name: 'Twitter',
-    visitors: 2.2,
-    revenues: '4,635',
-    sales: 467,
-    conversion: 4.3,
-  },
-  {
-    logo: "BrandThree",
-    name: 'Github',
-    visitors: 2.1,
-    revenues: '4,290',
-    sales: 420,
-    conversion: 3.7,
-  },
-  {
-    logo: "BrandFour",
-    name: 'Vimeo',
-    visitors: 1.5,
-    revenues: '3,580',
-    sales: 389,
-    conversion: 2.5,
-  },
-  {
-    logo: "BrandFive",
-    name: 'Facebook',
-    visitors: 3.5,
-    revenues: '6,768',
-    sales: 390,
-    conversion: 4.2,
-  },
-];
+interface TableOneProps {
+  products: ProductType[];
+}
 
-const TableOne = () => {
+const TableOne: React.FC<TableOneProps> = ({ products }) => {
+  const navigate = useNavigate();
+  async function deleteProduct(id: string) {
+    await fetch(`http://localhost:8080/api/v1/product/delete-product/${id}`);
+    navigate(0);
+  }
+
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
       <h4 className="mb-6 text-xl font-semibold text-black dark:text-white">
-        Recent
+        New Themes
       </h4>
 
       <div className="flex flex-col">
         <div className="grid grid-cols-3 rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-5">
           <div className="p-2.5 xl:p-5">
             <h5 className="text-sm font-medium uppercase xsm:text-base">
-              Source
+              Image
             </h5>
           </div>
           <div className="p-2.5 text-center xl:p-5">
             <h5 className="text-sm font-medium uppercase xsm:text-base">
-              Visitors
+              Category
             </h5>
           </div>
           <div className="p-2.5 text-center xl:p-5">
             <h5 className="text-sm font-medium uppercase xsm:text-base">
-              Revenues
+              Price
             </h5>
           </div>
           <div className="hidden p-2.5 text-center sm:block xl:p-5">
             <h5 className="text-sm font-medium uppercase xsm:text-base">
-              Sales
+              Demo
             </h5>
           </div>
           <div className="hidden p-2.5 text-center sm:block xl:p-5">
             <h5 className="text-sm font-medium uppercase xsm:text-base">
-              Conversion
+              Action
             </h5>
           </div>
+
         </div>
 
-        {brandData.map((brand, key) => (
+        {products.map((product: ProductType, key) => (
           <div
-            className={`grid grid-cols-3 sm:grid-cols-5 ${
-              key === brandData.length - 1
-                ? ''
-                : 'border-b border-stroke dark:border-strokedark'
-            }`}
+            className={`grid grid-cols-3 sm:grid-cols-5 ${key === products.length - 1
+              ? ''
+              : 'border-b border-stroke dark:border-strokedark'
+              }`}
             key={key}
           >
             <div className="flex items-center gap-3 p-2.5 xl:p-5">
               <div className="flex-shrink-0">
-                <img src={brand.logo} alt="Brand" />
+                <img className='rounded-full' width={25} height={25} src={product.imageUrl} alt="Brand" />
               </div>
               <p className="hidden text-black dark:text-white sm:block">
-                {brand.name}
+                {product.name}
               </p>
             </div>
 
             <div className="flex items-center justify-center p-2.5 xl:p-5">
-              <p className="text-black dark:text-white">{brand.visitors}K</p>
+              <p className="text-black dark:text-white">{product.category}</p>
             </div>
 
             <div className="flex items-center justify-center p-2.5 xl:p-5">
-              <p className="text-meta-3">${brand.revenues}</p>
+              <p className="text-meta-3">₹{product.price}</p>
             </div>
 
             <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-              <p className="text-black dark:text-white">{brand.sales}</p>
+              <p className=" dark:text-white"><Link to={product.demoUrl}>View</Link></p>
+            </div>
+            <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
+              <button onClick={() => deleteProduct(product._id)} className="rounded bg-red-500 p-3 font-medium text-gray hover:bg-opacity-90">
+                Delete
+              </button>
             </div>
 
-            <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-              <p className="text-meta-5">{brand.conversion}%</p>
-            </div>
           </div>
         ))}
       </div>

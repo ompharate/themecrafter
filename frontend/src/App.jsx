@@ -19,8 +19,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearNotifications } from "./features/cartSlice.js";
 import { clearUserNotifications } from "./features/userSlice.js";
 import Navbar from "./components/Navbar.jsx";
-import AdminLogin from "./pages/AdminLogin.jsx";
-import AdminDashboard from "./pages/AdminDashboard.jsx";
 
 const App = () => {
   const cart = useSelector((state) => state.cart);
@@ -93,9 +91,8 @@ const App = () => {
             </PrivateRoute>
           }
         />
-        <Route path="admin" element={<AdminLogin />}/>
-        <Route path="admin/dashboard" element={<AdminDashboard />}/>
-        <Route path="paymentsuccess" element={<Paymentsuccess />} />
+      
+       
       </Routes>
     </BrowserRouter>
   );

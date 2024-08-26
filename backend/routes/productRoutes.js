@@ -12,6 +12,6 @@ const router = express.Router();
 router.get("/", getAllProducts);
 router.get("/search", getProductsByKey);
 router.get("/detail/:id", getProductById);
-router.post("/add-product", isAdmin, addProduct);
-router.post("/delete-product/:id", isAdmin, deleteProduct);
+router.post("/add-product", addProduct);
+router.get("/delete-product/:id", deleteProduct);
 export default router;

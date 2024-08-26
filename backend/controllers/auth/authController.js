@@ -42,7 +42,7 @@ const adminLogin = (req, res) => {
     });
   }
 
-  return true;
+  res.send(true);
 };
 
 export { userRegister, adminLogin };

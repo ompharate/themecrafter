@@ -343,7 +343,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                       </clipPath>
                     </defs>
                   </svg>
-                  Analytics
+                  Records
                 </NavLink>
               </li>
               {/* <!-- Menu Item Tables --> */}
