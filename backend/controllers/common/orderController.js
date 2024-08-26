@@ -38,6 +38,15 @@ const deleteOrder = async (req, res) => {
 };
 
 const getAllOrders = async (req, res) => {
+  const orders = await Order.find().populate("products");
+  console.log(orders)
+  return res.status(200).json({
+    message: "Orders fetched successfully",
+    orders,
+  });
+ };
+
+const getAllUserOrders = async (req, res) => {
 
   const orders = await Order.find({user:req.params.id}).populate("products");
  
@@ -62,4 +71,4 @@ const getOrderById = async (req, res) => {
 
 
 
-export { addOrder, deleteOrder, getAllOrders ,getOrderById};
+export { addOrder, deleteOrder, getAllOrders ,getAllUserOrders,getOrderById};

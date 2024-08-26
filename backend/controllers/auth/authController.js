@@ -1,15 +1,15 @@
 import User from "../../models/userSchema.js";
 const userRegister = async (req, res, next) => {
-  const { username, id } = req.body;
+  const { username, userId } = req.body;
 
-  if (!username || !id) {
+  if (!username || !userId) {
     return res.status(500).json({
       message: "missing username or password",
     });
   }
 
   try {
-    const isUserPresent = await User.findById(id);
+    const isUserPresent = await User.findOne({userId:userId});
     if (isUserPresent) {
       return res.status(500).json({
         message: "User already exists with this email",
@@ -17,7 +17,7 @@ const userRegister = async (req, res, next) => {
     }
 
     const user = new User({
-      id,
+      userId,
       username: username,
     });
     user.save();

@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import CardDataStats from './CardDataStats'
 
+interface statsDataType {
+    totalViews: string;
+    totalProfit: string,
+    totalProducts: string,
+    totalUsers: string,
+}
+
 const CardDataStatsGroup = () => {
-    const [statsData, setStatsData] = useState({});
+    const [statsData, setStatsData] = useState<statsDataType|null>(null);
     useEffect(() => {
         const fetchCardStats = async () => {
             const response = await fetch("http://localhost:8080/api/v1/stats");
@@ -19,7 +26,7 @@ const CardDataStatsGroup = () => {
     }, [])
     return (
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-            <CardDataStats title="Total views" total={statsData.totalViews} rate="0.43%" levelUp>
+            <CardDataStats title="Total views" total={statsData?.totalViews} rate="0.43%" levelUp>
                 <svg
                     className="fill-primary dark:fill-white"
                     width="22"
@@ -38,7 +45,7 @@ const CardDataStatsGroup = () => {
                     />
                 </svg>
             </CardDataStats>
-            <CardDataStats title="Total Profit" total={statsData.totalProfit} rate="4.35%" levelUp>
+            <CardDataStats title="Total Profit" total={statsData?.totalProfit} rate="4.35%" levelUp>
                 <svg
                     className="fill-primary dark:fill-white"
                     width="20"
@@ -61,7 +68,7 @@ const CardDataStatsGroup = () => {
                     />
                 </svg>
             </CardDataStats>
-            <CardDataStats title="Total Product" total={statsData.totalProducts} rate="2.59%" levelUp>
+            <CardDataStats title="Total Product" total={statsData?.totalProducts} rate="2.59%" levelUp>
                 <svg
                     className="fill-primary dark:fill-white"
                     width="22"
@@ -80,7 +87,7 @@ const CardDataStatsGroup = () => {
                     />
                 </svg>
             </CardDataStats>
-            <CardDataStats title="Total Users" total={statsData.totalUsers} rate="0.95%" levelDown>
+            <CardDataStats title="Total Users" total={statsData?.totalUsers} rate="0.95%" levelDown>
                 <svg
                     className="fill-primary dark:fill-white"
                     width="22"
