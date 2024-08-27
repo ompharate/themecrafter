@@ -11,7 +11,7 @@ const ECommerce: React.FC = () => {
         <div className="col-span-12 xl:col-span-8">
           <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
             <h3 className="font-bold text-black text-2xl dark:text-white">
-              Recent orders 
+              Recent orders
             </h3>
           </div>
           <TableThree />
