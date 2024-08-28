@@ -19,6 +19,7 @@ const Products = ({ product }) => {
         ? data.map((product, index) => (
             <Card
               key={index}
+              id={product._id}
               thumbnail="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUTod9w7JP139QPFhNsPO9tP02XBnzbhGKIw&s"
               themeName={product.name}
               themePrice={product.price}

@@ -91,6 +91,12 @@ const App = () => {
             </PrivateRoute>
           }
         />
+        <Route
+          path="paymentsuccess"
+          element={
+            <Paymentsuccess/>
+          }
+        />
       
        
       </Routes>

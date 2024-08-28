@@ -1,23 +1,30 @@
 import React from "react";
-import Navbar from "../components/Navbar";
 import { FaGooglePay } from "react-icons/fa";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
-import { clearAllCart, removeCart } from "../features/cartSlice";
-import { RiDeleteBin6Fill } from "react-icons/ri";
+import { removeCart } from "../features/cartSlice";
 import axios from "axios";
+import { Link } from "react-router-dom";
 const Cart = () => {
   const dispatch = useDispatch();
   const { cart } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.user);
 
-  const totalPrice = cart.reduce(
-    (accumulator, product) => accumulator + product.price,
+  const originalPrice = cart.reduce(
+    (accumulator, product) => accumulator + product.themePrice,
     0
   );
+
+  const taxPrice = parseInt((originalPrice * 5) / 100);
+  const savingPrice = parseInt(((originalPrice+taxPrice) * 20) / 100);
+  const totalPrice = parseInt(originalPrice  - savingPrice);
+  console.log(originalPrice,savingPrice)
+
   const ids = cart.map((product) => {
-    return product._id;
+    return product.id;
   });
+
+  console.log(cart)
 
   const createOrder = async () => {
     const response = await axios.post(
@@ -53,10 +60,10 @@ const Cart = () => {
       image:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOmUVRI0eW9Ji_xoi0ItEbWGqxJI66oVDsRA&s",
       order_id: order.id,
-      callback_url: `${BASE_URL}/api/v1/payment/paymentverification`,
+      callback_url: `${BASE_URL}/api/v1/payment/payment-verification`,
       prefill: {
-        name: user.name,
-        email: user.email,
+        name: "om",
+        email: "ompharate@gmail.com",
       },
       notes: {
         address: "Razorpay Corporate Office",
@@ -70,70 +77,169 @@ const Cart = () => {
     createOrder();
   };
   return (
-    <div className="">
-      <div className="flex justify-between p-12 items-center bg-slate-200 ">
-        <h1 className="text-4xl font-semibold text-[#7747ff]">Cart</h1>
-        <div className="border-slate-300 w-[70%] border-t-2"></div>
-      
-      </div>
+    <section class="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
+      <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">
+          Shopping Cart
+        </h2>
 
-      {cart.length <= 0 ? (
-        <div className="text-center mt-10">
-          <h1 className="text-2xl">Cart is empty</h1>
-        </div>
-      ) : (
-        <div className=" flex justify-evenly flex-row gap-4 items-center rounded-sm flex-wrap">
-          <div className="my-4 flex justify-center flex-col gap-4 items-center  rounded-sm  flex-wrap">
-            {cart.map((product) => (
-              <div className="flex gap-7">
-                <div className="w-[70%]">
-                  <div className="font-semibold">{product.name}</div>
+        <div class="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
+          <div class="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl">
+            <div class="space-y-6">
+              {cart?.map((product, index) => (
+                <div class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6">
+                  <div class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
+                    <Link to="#" class="shrink-0 md:order-1">
+                      <img
+                        class="h-20 w-20 dark:hidden"
+                        src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg"
+                        alt="imac image"
+                      />
+                      <img
+                        class="hidden h-20 w-20 dark:block"
+                        src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-dark.svg"
+                        alt="imac image"
+                      />
+                    </Link>
 
-                  <img width={300} height={400} src={product.imageUrl}></img>
+                    <label for="counter-input" class="sr-only">
+                      Choose quantity:
+                    </label>
+                    <div class="flex items-center justify-between md:order-3 md:justify-end">
+                      <div class="text-end md:order-4 md:w-32">
+                        <p class="text-base font-bold text-gray-900 dark:text-white">
+                          ₹{product.themePrice}
+                        </p>
+                      </div>
+                    </div>
 
-                  <div>
-                    <h2 className="font-semibold">{product.price}</h2>
+                    <div class="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
+                      <Link
+                        to="#"
+                        class="text-base font-medium text-gray-900 hover:underline dark:text-white"
+                      >
+                        {product.themeName}
+                      </Link>
+
+                      <div class="flex items-center gap-4">
+                        <button
+                          onClick={() => dispatch(removeCart(product.id))}
+                          type="button"
+                          class="inline-flex items-center text-sm font-medium text-red-600 hover:underline dark:text-red-500"
+                        >
+                          <svg
+                            class="me-1.5 h-5 w-5"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M6 18 17.94 6M18 18 6.06 6"
+                            />
+                          </svg>
+                          Remove
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div>
-                  <RiDeleteBin6Fill
-                    className="cursor-pointer"
-                    onClick={() => dispatch(removeCart(product._id))}
-                    size={30}
-                    color="red"
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="flex gap-2 flex-col bg-slate-300 p-10 rounded-md">
-            <div>
-              <h1 className="text-2xl">Themecrafter</h1>
-            </div>
-            <div className="border-white w-[100%] border-t-2"></div>
-            <div className="flex flex-col">
-              {cart.map((product) => (
-                <div className="flex gap-3">
-                  <div className="font-bold">{product.name}</div>
-                  <div className="font-semibold">₹{product.price}</div>
                 </div>
               ))}
             </div>
-            <div className="border-white w-[100%] border-t-2"></div>
-            <div>
-              <h2 className="font-bold">Total: ₹{totalPrice}</h2>
+          </div>
+
+          <div class="mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full">
+            <div class="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6">
+              <p class="text-xl font-semibold text-gray-900 dark:text-white">
+                Order summary
+              </p>
+
+              <div class="space-y-4">
+                <div class="space-y-2">
+                  <dl class="flex items-center justify-between gap-4">
+                    <dt class="text-base font-normal text-gray-500 dark:text-gray-400">
+                      Original price
+                    </dt>
+                    <dd class="text-base font-medium text-gray-900 dark:text-white">
+                      ₹{originalPrice}
+                    </dd>
+                  </dl>
+
+                  <dl class="flex items-center justify-between gap-4">
+                    <dt class="text-base font-normal text-gray-500 dark:text-gray-400">
+                      Savings
+                    </dt>
+                    <dd class="text-base font-medium text-green-600">
+                      -₹{savingPrice} (20%)
+                    </dd>
+                  </dl>
+
+                  <dl class="flex items-center justify-between gap-4">
+                    <dt class="text-base font-normal text-gray-500 dark:text-gray-400">
+                      Tax
+                    </dt>
+                    <dd class="text-base font-medium text-gray-900 dark:text-white">
+                      ₹{taxPrice} (5%)
+                    </dd>
+                  </dl>
+                </div>
+
+                <dl class="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 dark:border-gray-700">
+                  <dt class="text-base font-bold text-gray-900 dark:text-white">
+                    Total
+                  </dt>
+                  <dd class="text-base font-bold text-gray-900 dark:text-white">
+                    ₹{totalPrice}
+                  </dd>
+                </dl>
+              </div>
+
+              <Link
+                to="#"
+                class="flex w-full items-center justify-center rounded-lg bg-primary-700 font-medium hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+              >
+                <FaGooglePay onClick={makeOrder} width={500} height={500} />
+              </Link>
+
+              <div class="flex items-center justify-center gap-2">
+                <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
+                  {" "}
+                  or{" "}
+                </span>
+                <Link
+                  to="/shop"
+                  title=""
+                  class="inline-flex items-center gap-2 text-sm font-medium text-primary-700 underline hover:no-underline dark:text-primary-500"
+                >
+                  Continue Shopping
+                  <svg
+                    class="h-5 w-5"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 12H5m14 0-4 4m4-4-4-4"
+                    />
+                  </svg>
+                </Link>
+              </div>
             </div>
-            <div className="border-white w-[100%] border-t-2"></div>
-            <button
-              onClick={(e) => makeOrder()}
-              className="bg-[#7747ff] w-40 rounded-sm text-white font-semibold hover:bg-transparent hover:border-2 hover:border-black hover:text-black flex items-center gap-2 justify-center"
-            >
-              <FaGooglePay size={50} /> ₹{totalPrice}
-            </button>
           </div>
         </div>
-      )}
-    </div>
+      </div>
+    </section>
   );
 };
 

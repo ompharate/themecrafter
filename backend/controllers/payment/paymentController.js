@@ -14,7 +14,7 @@ export const checkout = async (req, res) => {
 export const paymentVerification = (req, res) => {
   if (req.body) {
     return res.redirect(
-      `https://themecrafter.vercel.app/paymentsuccess?reference=${req.body.razorpay_payment_id}`
+      `http://localhost:5173/paymentsuccess?reference=${req.body.razorpay_payment_id}`
     );
   }
 
