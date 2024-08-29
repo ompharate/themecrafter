@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { addCart } from "../features/cartSlice";
+import { Link } from "react-router-dom";
 
 const Card = ({ thumbnail, themeName, themePrice, id }) => {
   const dispatch = useDispatch();
@@ -16,11 +17,11 @@ const Card = ({ thumbnail, themeName, themePrice, id }) => {
       />
 
       <div class="px-5 pb-5">
-        <a href="#">
+        <Link to={`/product/${id}`}>
           <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
             {themeName}
           </h5>
-        </a>
+        </Link>
         <div class="flex items-center mt-2.5 mb-5">
           <div class="flex items-center space-x-1 rtl:space-x-reverse">
             {Array(rating).fill().map((_, index) => (
