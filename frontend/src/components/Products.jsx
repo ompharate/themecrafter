@@ -13,6 +13,7 @@ const Products = ({ product }) => {
     const data = await response.json();
     return data.products;
   }
+  // console.log(data)
   return (  
     <div className="max-w-7xl mx-auto flex flex-wrap justify-center gap-10">
       {!isLoading

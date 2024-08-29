@@ -5,26 +5,37 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeCart } from "../features/cartSlice";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useAuth, useUser } from "@clerk/clerk-react";
+
+function CartEmpty() {
+  return (
+    <div className="flex flex-col justify-center items-center h-[80vh] gap-5">
+      <h1 className="text-3xl font-bold">Your cart is empty</h1>
+      <Link to="/" className="text-blue-700">Go back to home</Link>
+    </div>
+  );
+}
+
 const Cart = () => {
   const dispatch = useDispatch();
   const { cart } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.user);
-
+  const auth = useUser();
   const originalPrice = cart.reduce(
     (accumulator, product) => accumulator + product.themePrice,
     0
   );
 
   const taxPrice = parseInt((originalPrice * 5) / 100);
-  const savingPrice = parseInt(((originalPrice+taxPrice) * 20) / 100);
-  const totalPrice = parseInt(originalPrice  - savingPrice);
-  console.log(originalPrice,savingPrice)
+  const savingPrice = parseInt(((originalPrice + taxPrice) * 20) / 100);
+  const totalPrice = parseInt(originalPrice - savingPrice);
+  console.log(originalPrice, savingPrice);
 
   const ids = cart.map((product) => {
     return product.id;
   });
 
-  console.log(cart)
+  console.log(cart);
 
   const createOrder = async () => {
     const response = await axios.post(
@@ -62,20 +73,25 @@ const Cart = () => {
       order_id: order.id,
       callback_url: `${BASE_URL}/api/v1/payment/payment-verification`,
       prefill: {
-        name: "om",
-        email: "ompharate@gmail.com",
+        name: auth.user.fullName,
+        email: auth.user.primaryEmailAddress.emailAddress,
       },
       notes: {
         address: "Razorpay Corporate Office",
       },
       theme: {
-        color: "#121212",
+        color: "#1a56db",
       },
     };
     const razor = new window.Razorpay(options);
     razor.open();
     createOrder();
   };
+
+  if (cart.length <= 0) {
+    return <CartEmpty />;
+  }
+
   return (
     <section class="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
       <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
@@ -202,9 +218,9 @@ const Cart = () => {
 
               <Link
                 to="#"
-                class="flex w-full items-center justify-center rounded-lg bg-primary-700 font-medium hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                class="flex w-full items-center justify-center rounded-lg border-blue-700 p-2 border bg-primary-700 font-medium hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
-                <FaGooglePay onClick={makeOrder} width={500} height={500} />
+                <img onClick={makeOrder} src="/upi.png" />
               </Link>
 
               <div class="flex items-center justify-center gap-2">

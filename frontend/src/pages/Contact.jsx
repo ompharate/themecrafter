@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Alert from "../components/Alert";
 
 const Contact = () => {
   return (
@@ -13,16 +14,19 @@ const Contact = () => {
               type="text"
               class="bg-gray-100 text-gray-800 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
               placeholder="Name"
+              required
             />
             <input
               type="email"
               class="bg-gray-100 text-gray-800 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
               placeholder="Email"
+              required
             />
             <input
               type="number"
               class="bg-gray-100 text-gray-800 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
               placeholder="Phone Number"
+              required
             />
 
             <textarea
@@ -30,9 +34,13 @@ const Contact = () => {
               rows={7}
               class="bg-gray-100 text-gray-800 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
               placeholder="Message"
+              required
             ></textarea>
 
             <button
+              onClick={() => {
+                alert("form submitted successfully");
+              }}
               type="button"
               class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
             >

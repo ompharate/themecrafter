@@ -1,5 +1,6 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import { CgProfile } from "react-icons/cg";
 
 const Home = () => {
   return (
@@ -12,10 +13,10 @@ const Home = () => {
             role="alert"
           >
             <span class="text-xs bg-blue-600 rounded-full text-white px-4 py-1.5 mr-3">
-              New
+              Coming Soon
             </span>{" "}
             <span class="text-sm font-medium">
-              Flowbite is out! See what's new
+              ThemeCrafter for seller is out! See what's new
             </span>
             <svg
               class="w-5 h-5 ml-2"
@@ -31,18 +32,18 @@ const Home = () => {
             </svg>
           </Link>
           <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight  md:text-5xl lg:text-6xl dark:text-white">
-            We invest in the world’s potential
+            Premium Themes to Elevate Your Website
           </h1>
           <p class="mb-8 text-lg font-normal text-gray-700 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
-            Here at Flowbite we focus on markets where technology, innovation,
-            and capital can unlock long-term value and drive economic growth.
+            Empower your website with premium themes, Creativity, innovation,
+            and beauty in every design.
           </p>
           <div class="flex flex-col mb-8 space-y-4 lg:mb-16 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
             <Link
-              to="/shop"
+              to="/sign-in"
               class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
             >
-              Marketplace
+              Get Started
               <svg
                 class="w-5 h-5 ml-2 -mr-1"
                 fill="currentColor"
@@ -57,18 +58,10 @@ const Home = () => {
               </svg>
             </Link>
             <Link
-              to="#"
-              class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg bg-gray-100 hover:bg-gray-300 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+              to="/shop"
+              class="inline-flex gap-3 items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg bg-gray-100 hover:bg-gray-300 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
             >
-              <svg
-                class="w-5 h-5 mr-2 -ml-1"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path>
-              </svg>
-              Become Theme Seller
+              Marketplace
             </Link>
           </div>
           <div class="px-4 mx-auto text-center md:max-w-screen-md lg:max-w-screen-lg lg:px-36">
