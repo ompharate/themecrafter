@@ -2,7 +2,7 @@ import React from "react";
 import Card from "./Card";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
-const Products = ({ product }) => {
+const Products = () => {
   const { data, isLoading } = useQuery({
     queryKey: "products",
     queryFn: fetchProducts,

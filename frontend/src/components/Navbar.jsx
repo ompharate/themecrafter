@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { FaCartShopping } from "react-icons/fa6";
 
 const Navbar = () => {
   const router = useLocation();
   const cart = useSelector((state) => state.cart.cart);
+  const [searchKey, setSearchKey] = useState("");
+  const navigate = useNavigate();
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      navigate("/search?q=" + searchKey);
+    }
+  };
+
   return (
     <div>
       <nav className="bg-white border-gray-200 dark:bg-gray-900">
@@ -63,6 +72,8 @@ const Navbar = () => {
                   <span className="sr-only">Search icon</span>
                 </div>
                 <input
+                  onChange={(e) => setSearchKey(e.target.value)}
+                  onKeyDown={handleKeyDown}
                   type="text"
                   id="search-navbar"
                   className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -161,18 +172,18 @@ const Navbar = () => {
                 </Link>
               </li>
               {!(router.pathname === "/") ? (
-              <Link
-                to={"/cart"}
-                className="cursor-pointer flex items-center justify-center gap-2 bg-blue-700 rounded-lg p-2"
-              >
-                {/* <img src="/cart.png" width={20} height={20} /> */}
-                <FaCartShopping color="white" />
+                <Link
+                  to={"/cart"}
+                  className="cursor-pointer flex items-center justify-center gap-2 bg-blue-700 rounded-lg p-2"
+                >
+                  {/* <img src="/cart.png" width={20} height={20} /> */}
+                  <FaCartShopping color="white" />
 
-                <span className=" text-white font-semibold rounded-full text-sm relative right-0 top-[-1px]">
-                  {cart?.length}
-                </span>
-              </Link>
-              ):null}
+                  <span className=" text-white font-semibold rounded-full text-sm relative right-0 top-[-1px]">
+                    {cart?.length}
+                  </span>
+                </Link>
+              ) : null}
             </ul>
           </div>
         </div>

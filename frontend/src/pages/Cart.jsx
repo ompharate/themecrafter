@@ -11,7 +11,7 @@ function CartEmpty() {
   return (
     <div className="flex flex-col justify-center items-center h-[80vh] gap-5">
       <h1 className="text-3xl font-bold">Your cart is empty</h1>
-      <Link to="/" className="text-blue-700">Go back to home</Link>
+      <Link to="/shop" className="text-blue-700">Go back and shop</Link>
     </div>
   );
 }
@@ -131,7 +131,7 @@ const Cart = () => {
 
                     <div class="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
                       <Link
-                        to="#"
+                        to={`/product/${product.id}`}
                         class="text-base font-medium text-gray-900 hover:underline dark:text-white"
                       >
                         {product.themeName}
