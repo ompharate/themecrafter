@@ -16,14 +16,14 @@ export const cartSlice = createSlice({
       );
       console.log(isExist);
       if (isExist) {
-        state.message = "product already exists in the cart";
+        state.message = "Product already exists in the cart";
         return;
       }
       state.cart.push(action.payload);
-      state.message = "product added in the cart";
+      state.message = "Product added to the cart";
     },
     removeCart: (state, action) => {
-      state.message = "product removed from cart";
+      state.message = "Product removed from cart";
       state.cart = state.cart.filter((product) => product.id != action.payload);
     },
     clearAllCart: (state, action) => {
