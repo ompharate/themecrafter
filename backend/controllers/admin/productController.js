@@ -8,22 +8,19 @@ const addProduct = async (req, res) => {
     price,
     category,
     previewLink,
-    screenShots,
+    screenshot,
     file,
   } = req.body;
-
+  console.log(req.body);
   const product = new Product({
     name: title,
     price: price,
     description: description,
-    imageUrl:
-      screenShots |
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbjHha3TakqXp-HgwYjsWPEp1AnG7znGSLCQ&s",
+    imageUrl: screenshot,
+    downloadUrl: file,
+    category: category,
     demoUrl: previewLink,
-    downloadUrl:
-      file |
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbjHha3TakqXp-HgwYjsWPEp1AnG7znGSLCQ&s",
-    category: category | "Modern Theme",
+    downloadUrl: file
   });
 
   product.save();

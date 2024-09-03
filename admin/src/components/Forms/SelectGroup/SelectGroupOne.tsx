@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 
-const SelectGroupOne: React.FC = () => {
-  const [selectedOption, setSelectedOption] = useState<string>('');
+interface SelectGroupOneProps {
+  selectedOption: string;
+  setSelectedOption: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const SelectGroupOne: React.FC<SelectGroupOneProps> = ({ selectedOption, setSelectedOption }) => {
   const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false);
 
   const changeTextColor = () => {
@@ -22,21 +26,20 @@ const SelectGroupOne: React.FC = () => {
             setSelectedOption(e.target.value);
             changeTextColor();
           }}
-          className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary ${
-            isOptionSelected ? 'text-black dark:text-white' : ''
-          }`}
+          className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary ${isOptionSelected ? 'text-black dark:text-white' : ''
+            }`}
         >
           <option value="" disabled className="text-body dark:text-bodydark">
             Select your Category
           </option>
-          <option value="USA" className="text-body dark:text-bodydark">
-            USA
+          <option value="MODERN" className="text-body dark:text-bodydark">
+            MODERN
           </option>
-          <option value="UK" className="text-body dark:text-bodydark">
-            UK
+          <option value="PORTFOLIO" className="text-body dark:text-bodydark">
+            PORTFOLIO
           </option>
-          <option value="Canada" className="text-body dark:text-bodydark">
-            Canada
+          <option value="LANDING PAGE" className="text-body dark:text-bodydark">
+            LANDING PAGE
           </option>
         </select>
 

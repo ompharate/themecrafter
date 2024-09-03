@@ -20,8 +20,6 @@ const ProductSchema = new mongoose.Schema(
     imageUrl: {
       type: String,
       required: true,
-      default:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7bST8hvF8-TywIeuju3n4fhxvcEL9Bu3KhQ&s",
     },
     demoUrl: {
       type: String,

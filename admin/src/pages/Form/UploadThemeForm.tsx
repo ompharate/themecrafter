@@ -7,41 +7,89 @@ const UploadThemeForm = () => {
     const [themeTitle, setThemeTitle] = useState('');
     const [themeDescription, setThemeDescription] = useState('');
     const [themePrice, setThemePrice] = useState('');
-    const [themeCategory, setThemeCategory] = useState('')
-    const [previewLink, setPreviewLink] = useState('')
-    const [ScreenShots, setScreenShots] = useState<FileList | null>(null)
-    const [File, setFile] = useState<FileList | null>(null)
+    const [previewLink, setPreviewLink] = useState('');
+    const [screenshot, setScreenshot] = useState<File | null>(null);
+    const [file, setFile] = useState<File | null>(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [selectedOption, setSelectedOption] = useState<string>('');
+    async function getObjectUrl(file: File, fileType: string) {
+        const response = await fetch(`http://localhost:8080/generatePresignedUrl?filename=${file.name}&filetype=${fileType}`);
+
+        if (!response.ok) {
+            throw new Error('Failed to get presigned URL');
+        }
+
+        const { url } = await response.json();
+        console.log(url)
+        return url;
+    }
+
+    async function uploadFile(file: File, url: string) {
+        console.log(file,url)
+        const response = await fetch(url, {
+            method: 'PUT',
+            body: file,
+            headers: {
+                'Content-Type': file.type 
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to upload file');
+        }
+    }
 
     async function uploadTheme(e: FormEvent) {
         e.preventDefault();
         setIsLoading(true);
-        const themeData = {
-            title: themeTitle,
-            description: themeDescription,
-            price: themePrice,
-            category: themeCategory,
-            previewLink: previewLink,
-            screenShots: ScreenShots,
-            file: File
-        }
-        console.log(themeData)
-        if (!themeData) return null;
-        alert("submitting")
-        // Send the theme data to the server
-        const response = await fetch('http://localhost:8080/api/v1/product/add-product', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(themeData)
-        });
 
-        if (response.status === 201) {
-            alert("Theme uploaded successfully!");
+        if (!themeTitle || !themeDescription || !themePrice ||!selectedOption) {
+            alert('Please fill all the required fields!');
+            setIsLoading(false);
+            return;
         }
-        setIsLoading(false);
+
+        try {
+            // Upload files and get URLs
+            const fileUrl = file ? await getObjectUrl(file, file.type) : '';
+            if (file) await uploadFile(file, fileUrl);
+
+            const screenshotUrl = screenshot ? await getObjectUrl(screenshot, screenshot.type) : '';
+            if (screenshot) await uploadFile(screenshot, screenshotUrl);
+
+            // Prepare theme data
+            const themeData = {
+                title: themeTitle,
+                description: themeDescription,
+                price: themePrice,
+                category: selectedOption,
+                previewLink,
+                screenshot: `https://s3.amazonaws.com/tc.ompharate.tech/${screenshot?.name}`,
+                file:`https://s3.amazonaws.com/tc.ompharate.tech/${file?.name}`,
+            };
+
+            // Send theme data to API
+            const response = await fetch('http://localhost:8080/api/v1/product/add-product', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(themeData)
+            });
+
+            if (response.status === 201) {
+                alert('Theme uploaded successfully!');
+            } else {
+                alert('Failed to upload theme');
+            }
+        } catch (error) {
+            console.error(error);
+            alert('An error occurred during the upload process');
+        } finally {
+            setIsLoading(false);
+        }
     }
+
     return (
         <>
             <Breadcrumb pageName="Upload Theme" />
@@ -87,7 +135,7 @@ const UploadThemeForm = () => {
 
 
 
-                                <SelectGroupOne />
+                                <SelectGroupOne selectedOption={selectedOption} setSelectedOption={setSelectedOption}/>
 
                                 <div className="mb-6">
                                     <label className="mb-2.5 block text-black dark:text-white">
@@ -120,7 +168,7 @@ const UploadThemeForm = () => {
                                         </label>
                                         <input
                                             type="file"
-                                            onChange={(e) => setScreenShots(e.target.files)}
+                                            onChange={(e) => setScreenshot(e.target.files ? e.target.files[0] : null)}
                                             className="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:py-3 file:px-5 file:hover:bg-primary file:hover:bg-opacity-10 focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:file:border-form-strokedark dark:file:bg-white/30 dark:file:text-white dark:focus:border-primary"
 
                                         />
@@ -131,7 +179,7 @@ const UploadThemeForm = () => {
                                         </label>
                                         <input
                                             type="file"
-                                            onChange={(e) => setFile(e.target.files)}
+                                            onChange={(e) => setFile(e.target.files ? e.target.files[0] : null)}
                                             className="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:py-3 file:px-5 file:hover:bg-primary file:hover:bg-opacity-10 focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:file:border-form-strokedark dark:file:bg-white/30 dark:file:text-white dark:focus:border-primary"
 
                                         />

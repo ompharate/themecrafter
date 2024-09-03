@@ -13,7 +13,7 @@ const Products = () => {
     const data = await response.json();
     return data.products;
   }
-  // console.log(data)
+  console.log(data)
   return (  
     <div className="max-w-7xl mx-auto flex flex-wrap justify-center gap-10">
       {!isLoading
@@ -21,7 +21,7 @@ const Products = () => {
             <Card
               key={index}
               id={product._id}
-              thumbnail="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUTod9w7JP139QPFhNsPO9tP02XBnzbhGKIw&s"
+              thumbnail={product.imageUrl} 
               themeName={product.name}
               themePrice={product.price}
             />

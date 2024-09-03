@@ -14,7 +14,7 @@ const productDetails = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
 
-const getProduct = async () => {
+  const getProduct = async () => {
     const response = await fetch(`${BASE_URL}/api/v1/product/detail/${id}`);
     const data = await response.json();
     return data.product;
@@ -34,14 +34,10 @@ const getProduct = async () => {
         <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0">
           <div class="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
             <div class="shrink-0 max-w-md lg:max-w-lg mx-auto">
-              <img
-                class="w-full dark:hidden"
-                src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg"
-                alt=""
-              />
+              <img class="w-full dark:hidden" src={data.imageUrl} alt="" />
               <img
                 class="w-full hidden dark:block"
-                src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-dark.svg"
+                src={data.imageUrl}
                 alt=""
               />
             </div>
