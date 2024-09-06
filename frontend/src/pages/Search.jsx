@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, useLocation, useParams } from "react-router-dom";
 import Card from "../components/Card";
+import { BASE_URL } from "../utils/constants";
 
 function SearchNotFound() {
   return (
@@ -24,7 +25,7 @@ const Search = () => {
 
   async function fetchProducts() {
     const response = await fetch(
-      `http://localhost:8080/api/v1/product/search?q=${query}`
+      `${BASE_URL}/api/v1/product/search?q=${query}`
     );
     const data = await response.json();
     return data.product;

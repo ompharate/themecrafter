@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "./Card";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { BASE_URL } from "../utils/constants";
 
 const Products = () => {
   const { data, isLoading } = useQuery({
@@ -9,7 +10,7 @@ const Products = () => {
   });
 
   async function fetchProducts() {
-    const response = await fetch("http://localhost:8080/api/v1/product");
+    const response = await fetch(`${BASE_URL}/api/v1/product`);
     const data = await response.json();
     return data.products;
   }
