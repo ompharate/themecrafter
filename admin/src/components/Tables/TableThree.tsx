@@ -14,7 +14,7 @@ const TableThree = () => {
   const [orders, setOrders] = useState<orders[] | null>(null)
   useEffect(() => {
     const fetchOrders = async () => {
-      const respones = await fetch('http://localhost:8080/api/v1/order/', {
+      const respones = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/order/`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

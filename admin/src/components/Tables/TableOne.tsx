@@ -19,7 +19,7 @@ const TableOne: React.FC<TableOneProps> = ({ products }) => {
   console.log(products)
   const navigate = useNavigate();
   async function deleteProduct(id: string) {
-    await fetch(`http://localhost:8080/api/v1/product/delete-product/${id}`);
+    await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/product/delete-product/${id}`);
     navigate(0);
   }
 

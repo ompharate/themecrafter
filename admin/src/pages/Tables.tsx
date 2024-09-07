@@ -23,7 +23,7 @@ const Tables = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("http://localhost:8080/api/v1/product");
+        const response = await fetch("${import.meta.env.VITE_BACKEND_URL}/api/v1/product");
         
         if (!response.ok) {
           throw new Error("Failed to fetch products");
