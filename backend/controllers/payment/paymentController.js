@@ -14,7 +14,7 @@ export const checkout = async (req, res) => {
 export const paymentVerification = (req, res) => {
   if (req.body) {
     return res.redirect(
-      `http://localhost:5173/paymentsuccess?reference=${req.body.razorpay_payment_id}`
+      `${process.env.FRONTEND_URL}/paymentsuccess?reference=${req.body.razorpay_payment_id}`
     );
   }
 

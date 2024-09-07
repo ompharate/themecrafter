@@ -1,9 +1,26 @@
 import { useUser } from "@clerk/clerk-react";
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { Link } from "react-router-dom";
+import { BASE_URL } from "../utils/constants";
 
 const Profile = () => {
   const { user } = useUser();
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["fetchOrders"],
+    queryFn: fetchOrders,
+  });
+
+  async function fetchOrders() {
+    
+    const response = await fetch(`${BASE_URL}/api/v1/order/user/${user.id}`);
+    const data = await response.json();
+    console.log(data);
+    return data.orders;
+  }
+
+  console.log(data);
   return (
     <div className="max-w-7xl mx-auto">
       <div className="w-full flex justify-center my-5">
@@ -56,116 +73,35 @@ const Profile = () => {
               role="list"
               class="divide-y divide-gray-200 dark:divide-gray-700"
             >
-              <li class="py-3 sm:py-4">
-                <div class="flex items-center">
-                  <div class="flex-shrink-0">
-                    <img
-                      class="w-8 h-8 rounded-full"
-                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLe5PABjXc17cjIMOibECLM7ppDwMmiDg6Dw&s"
-                      alt="Neil image"
-                    />
+              {!isLoading && data.map((order, index) => (
+                <li class="py-3 sm:py-4">
+                  <div class="flex items-center">
+                    {order?.products?.map((item) => (
+                      <>
+                        <div class="flex-shrink-0">
+                          <img
+                            class="w-8 h-8 rounded-full"
+                            src={item.imageUrl}
+                            alt="Neil image"
+                          />
+                        </div>
+                        <div class="flex-1 min-w-0 ms-4">
+                          <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                            {item.name}
+                          </p>
+                          <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                            email@windster.com
+                          </p>
+                        </div>
+                      </>
+                    ))}
+
+                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                      ₹{order.totalPrice}
+                    </div>
                   </div>
-                  <div class="flex-1 min-w-0 ms-4">
-                    <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                      Neil Sims
-                    </p>
-                    <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                      email@windster.com
-                    </p>
-                  </div>
-                  <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                    $320
-                  </div>
-                </div>
-              </li>
-              <li class="py-3 sm:py-4">
-                <div class="flex items-center ">
-                  <div class="flex-shrink-0">
-                    <img
-                      class="w-8 h-8 rounded-full"
-                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLe5PABjXc17cjIMOibECLM7ppDwMmiDg6Dw&s"
-                      alt="Bonnie image"
-                    />
-                  </div>
-                  <div class="flex-1 min-w-0 ms-4">
-                    <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                      Bonnie Green
-                    </p>
-                    <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                      email@windster.com
-                    </p>
-                  </div>
-                  <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                    $3467
-                  </div>
-                </div>
-              </li>
-              <li class="py-3 sm:py-4">
-                <div class="flex items-center">
-                  <div class="flex-shrink-0">
-                    <img
-                      class="w-8 h-8 rounded-full"
-                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLe5PABjXc17cjIMOibECLM7ppDwMmiDg6Dw&s"
-                      alt="Michael image"
-                    />
-                  </div>
-                  <div class="flex-1 min-w-0 ms-4">
-                    <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                      Michael Gough
-                    </p>
-                    <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                      email@windster.com
-                    </p>
-                  </div>
-                  <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                    $67
-                  </div>
-                </div>
-              </li>
-              <li class="py-3 sm:py-4">
-                <div class="flex items-center ">
-                  <div class="flex-shrink-0">
-                    <img
-                      class="w-8 h-8 rounded-full"
-                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLe5PABjXc17cjIMOibECLM7ppDwMmiDg6Dw&s"
-                      alt="Lana image"
-                    />
-                  </div>
-                  <div class="flex-1 min-w-0 ms-4">
-                    <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                      Lana Byrd
-                    </p>
-                    <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                      email@windster.com
-                    </p>
-                  </div>
-                  <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                    $367
-                  </div>
-                </div>
-              </li>
-              <li class="pt-3 pb-0 sm:pt-4">
-                <div class="flex items-center ">
-                  <div class="flex-shrink-0">
-                    <img
-                      class="w-8 h-8 rounded-full"
-                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLe5PABjXc17cjIMOibECLM7ppDwMmiDg6Dw&s"
-                      alt="Thomas image"
-                    />
-                  </div>
-                  <div class="flex-1 min-w-0 ms-4">
-                    <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                      Thomes Lean
-                    </p>
-                    <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                      email@windster.com
-                    </p>
-                  </div>
-                  <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                    $2367
-                  </div>
-                </div>
-              </li>
+                </li>
+              ))}
             </ul>
           </div>
         </div>

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeCart } from "../features/cartSlice";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { useAuth, useUser } from "@clerk/clerk-react";
+import { useUser } from "@clerk/clerk-react";
 
 function CartEmpty() {
   return (
@@ -19,12 +19,13 @@ function CartEmpty() {
 const Cart = () => {
   const dispatch = useDispatch();
   const { cart } = useSelector((state) => state.cart);
-  const { user } = useSelector((state) => state.user);
+   console.log("cart is ",cart)
   const auth = useUser();
   const originalPrice = cart.reduce(
     (accumulator, product) => accumulator + product.themePrice,
     0
   );
+
 
   const taxPrice = parseInt((originalPrice * 5) / 100);
   const savingPrice = parseInt(((originalPrice + taxPrice) * 20) / 100);
@@ -35,13 +36,13 @@ const Cart = () => {
     return product.id;
   });
 
-  console.log(cart);
+  
 
   const createOrder = async () => {
     const response = await axios.post(
       `${BASE_URL}/api/v1/order/add-order`,
-      {
-        userId: user._id,
+      {     
+        userId: auth.user.id,
         products: ids,
         totalPrice: totalPrice,
       },
@@ -91,6 +92,7 @@ const Cart = () => {
   if (cart.length <= 0) {
     return <CartEmpty />;
   }
+  console.log(cart)
 
   return (
     <section class="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
@@ -108,12 +110,12 @@ const Cart = () => {
                     <Link to="#" class="shrink-0 md:order-1">
                       <img
                         class="h-20 w-20 dark:hidden"
-                        src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg"
+                        src={product.themeImage}
                         alt="imac image"
                       />
                       <img
                         class="hidden h-20 w-20 dark:block"
-                        src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-dark.svg"
+                        src={product.themeImage}
                         alt="imac image"
                       />
                     </Link>

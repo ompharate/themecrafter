@@ -1,8 +1,8 @@
 import Order from "../../models/orderSchema.js";
 
 const addOrder = async (req, res) => {
+  console.log(req.body);
   const { userId, products, totalPrice } = req.body;
-
   if (!userId || !products || !totalPrice) {
     return res.status(500).json({
       message: "all fields are required",
@@ -45,6 +45,7 @@ const getAllOrders = async (req, res) => {
 };
 
 const getAllUserOrders = async (req, res) => {
+  console.log("ok")
   const orders = await Order.find({ user: req.params.id }).populate("products");
 
   return res.status(200).json({

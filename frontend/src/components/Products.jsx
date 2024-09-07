@@ -5,16 +5,16 @@ import { BASE_URL } from "../utils/constants";
 
 const Products = () => {
   const { data, isLoading } = useQuery({
-    queryKey: "products",
+    queryKey: ['products'],
     queryFn: fetchProducts,
   });
-
+  
   async function fetchProducts() {
     const response = await fetch(`${BASE_URL}/api/v1/product`);
+    console.log(response)
     const data = await response.json();
     return data.products;
   }
-  console.log(data)
   return (  
     <div className="max-w-7xl mx-auto flex flex-wrap justify-center gap-10">
       {!isLoading
