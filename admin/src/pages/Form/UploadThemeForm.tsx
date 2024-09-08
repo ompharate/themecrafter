@@ -20,12 +20,12 @@ const UploadThemeForm = () => {
         }
 
         const { url } = await response.json();
-        console.log(url)
+      
         return url;
     }
 
     async function uploadFile(file: File, url: string) {
-        console.log(file,url)
+        
         const response = await fetch(url, {
             method: 'PUT',
             body: file,

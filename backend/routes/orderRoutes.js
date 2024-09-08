@@ -11,5 +11,5 @@ router.get("/",getAllOrders);
 router.get("/user/:id",getAllUserOrders);
 router.post("/add-order", addOrder);
 router.post("/delete-order/:id", deleteOrder);
-router.get("/:id", getOrderById);
+router.get("/:userId/:id", getOrderById);
 export default router;

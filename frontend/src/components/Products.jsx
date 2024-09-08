@@ -11,7 +11,6 @@ const Products = () => {
   
   async function fetchProducts() {
     const response = await fetch(`${BASE_URL}/api/v1/product`);
-    console.log(response)
     const data = await response.json();
     return data.products;
   }

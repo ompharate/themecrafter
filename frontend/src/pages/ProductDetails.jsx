@@ -24,8 +24,6 @@ const productDetails = () => {
     queryFn: getProduct,
   });
 
-  console.log(data);
-
   return (
     <section class="py-8 bg-white md:py-16 dark:bg-gray-900 antialiased">
       {isLoading ? (
@@ -160,7 +158,7 @@ const productDetails = () => {
                         id: data._id,
                         themePrice: data.price,
                         themeName: data.name,
-                        themeImage:data.imageUrl
+                        themeImage: data.imageUrl,
                       })
                     )
                   }
@@ -169,12 +167,12 @@ const productDetails = () => {
                   <FaCartShopping /> Add to cart
                 </button>
                 <Link
+                  target="_blank"
                   to={data.demoUrl}
                   class="text-white flex gap-2 items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
                   <VscPreview /> Live Preview
                 </Link>
-                
               </div>
 
               <hr class="my-6 md:my-8 border-gray-200 dark:border-gray-800" />

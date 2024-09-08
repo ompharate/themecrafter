@@ -32,14 +32,17 @@ const SelectGroupOne: React.FC<SelectGroupOneProps> = ({ selectedOption, setSele
           <option value="" disabled className="text-body dark:text-bodydark">
             Select your Category
           </option>
-          <option value="MODERN" className="text-body dark:text-bodydark">
-            MODERN
+          <option value="React + tailwindscss" className="text-body dark:text-bodydark">
+            React + tailwindscss
           </option>
-          <option value="PORTFOLIO" className="text-body dark:text-bodydark">
-            PORTFOLIO
+          <option value="React + css" className="text-body dark:text-bodydark">
+            React + css
           </option>
-          <option value="LANDING PAGE" className="text-body dark:text-bodydark">
-            LANDING PAGE
+          <option value="NextJs + tailwindscss" className="text-body dark:text-bodydark">
+            NextJs + tailwindscss
+          </option>
+          <option value="Html + css + js" className="text-body dark:text-bodydark">
+            Html + css + js
           </option>
         </select>
 

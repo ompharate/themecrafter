@@ -13,14 +13,11 @@ const Profile = () => {
   });
 
   async function fetchOrders() {
-    
     const response = await fetch(`${BASE_URL}/api/v1/order/user/${user.id}`);
     const data = await response.json();
-    console.log(data);
     return data.orders;
   }
 
-  console.log(data);
   return (
     <div className="max-w-7xl mx-auto">
       <div className="w-full flex justify-center my-5">
@@ -73,35 +70,40 @@ const Profile = () => {
               role="list"
               class="divide-y divide-gray-200 dark:divide-gray-700"
             >
-              {!isLoading && data.map((order, index) => (
-                <li class="py-3 sm:py-4">
-                  <div class="flex items-center">
-                    {order?.products?.map((item) => (
-                      <>
-                        <div class="flex-shrink-0">
-                          <img
-                            class="w-8 h-8 rounded-full"
-                            src={item.imageUrl}
-                            alt="Neil image"
-                          />
-                        </div>
-                        <div class="flex-1 min-w-0 ms-4">
-                          <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                            {item.name}
-                          </p>
-                          <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                            email@windster.com
-                          </p>
-                        </div>
-                      </>
-                    ))}
+              {!isLoading &&
+                data.map((order, index) => (
+                  <li class="py-3 sm:py-4">
+                    <div class="flex items-center">
+                      {order?.products?.map((item) => (
+                        <>
+                          <div class="flex-shrink-0">
+                            <img
+                              class="w-8 h-8 rounded-full"
+                              src={item.imageUrl}
+                              alt="Neil image"
+                            />
+                          </div>
+                          <div class="flex-1  min-w-0 ms-4">
+                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                              <Link to={`/order/${order._id}`}>{item.name}</Link>
+                            </p>
+                            <Link
+                              target="_blank"
+                              to={item.demoUrl}
+                              class="text-sm text-gray-500 truncate dark:text-gray-400"
+                            >
+                              Live Preview
+                            </Link>
+                          </div>
+                        </>
+                      ))}
 
-                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                      ₹{order.totalPrice}
+                      <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                        ₹{order.totalPrice}
+                      </div>
                     </div>
-                  </div>
-                </li>
-              ))}
+                  </li>
+                ))}
             </ul>
           </div>
         </div>

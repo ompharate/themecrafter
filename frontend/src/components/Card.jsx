@@ -4,7 +4,6 @@ import { addCart } from "../features/cartSlice";
 import { Link } from "react-router-dom";
 
 const Card = ({ thumbnail, themeName, themePrice, id }) => {
-  console.log(thumbnail)
   const dispatch = useDispatch();
   const rating = useMemo(() => {
     return Math.floor(Math.random() * 5 - 2 + 1) + 2;

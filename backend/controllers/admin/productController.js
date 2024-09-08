@@ -11,7 +11,7 @@ const addProduct = async (req, res) => {
     screenshot,
     file,
   } = req.body;
-  console.log(req.body);
+ 
   const product = new Product({
     name: title,
     price: price,
@@ -50,7 +50,7 @@ const getAllProducts = async (req, res) => {
 
 const getProductsByKey = async (req, res) => {
   const key = req.query.q;
-  console.log(key);
+
   const product = await Product.find({
     $or: [
       { category: { $regex: key, $options: "i" } }, // case-insensitive search in title

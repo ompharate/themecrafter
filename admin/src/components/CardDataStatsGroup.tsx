@@ -19,7 +19,7 @@ const CardDataStatsGroup = () => {
             }
 
             const data = await response.json();
-            console.log(data);
+           
             setStatsData(data);
         }
         fetchCardStats()

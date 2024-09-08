@@ -19,7 +19,6 @@ function CartEmpty() {
 const Cart = () => {
   const dispatch = useDispatch();
   const { cart } = useSelector((state) => state.cart);
-   console.log("cart is ",cart)
   const auth = useUser();
   const originalPrice = cart.reduce(
     (accumulator, product) => accumulator + product.themePrice,
@@ -30,7 +29,7 @@ const Cart = () => {
   const taxPrice = parseInt((originalPrice * 5) / 100);
   const savingPrice = parseInt(((originalPrice + taxPrice) * 20) / 100);
   const totalPrice = parseInt(originalPrice - savingPrice);
-  console.log(originalPrice, savingPrice);
+  
 
   const ids = cart.map((product) => {
     return product.id;
@@ -92,7 +91,6 @@ const Cart = () => {
   if (cart.length <= 0) {
     return <CartEmpty />;
   }
-  console.log(cart)
 
   return (
     <section class="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">

@@ -46,6 +46,7 @@ app.get("/generatePresignedUrl", async (req, res) => {
   });
 
   const url = await getSignedUrl(s3Client, command);
+  
   res.json({ url });
 });
 

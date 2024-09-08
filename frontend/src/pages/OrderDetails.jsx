@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
 import { VscPreview } from "react-icons/vsc";
 import { BASE_URL } from "../utils/constants";
 import { useParams } from "react-router-dom";
 import { FaCloudDownloadAlt } from "react-icons/fa";
 import axios from "axios";
 import Loader from "../components/Loader";
+import { useUser } from "@clerk/clerk-react";
 const OrderDetails = () => {
   const { id } = useParams();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const {user} = useUser();
   useEffect(() => {
     const getOrder = async () => {
       setLoading(true);
-      const response = await axios.get(`${BASE_URL}/api/v1/order/${id}`, {
+      const response = await axios.get(`${BASE_URL}/api/v1/order/${user.id}/${id}/`, {
         withCredentials: true,
       });
 
@@ -24,13 +25,10 @@ const OrderDetails = () => {
     setLoading(false);
   }, []);
 
+
   return (
     <div className="">
-      <div className="flex justify-between p-12 items-center bg-slate-200 shadow-lg">
-        <h1 className="text-4xl font-semibold text-[#7747ff]">Order Details</h1>
-        <div className="border-slate-300 w-[70%] border-t-2"></div>
       
-      </div>
       {loading ? (
         <div className="flex justify-center flex-row  items-center h-[50vh]">
           <Loader />
@@ -67,14 +65,14 @@ const OrderDetails = () => {
                         onClick={() =>
                           window.open(product.downloadUrl, "_self")
                         }
-                        className="bg-[#7747ff] p-3 rounded-sm text-white font-semibold hover:bg-transparent hover:border-2 hover:border-black hover:text-black flex items-center gap-2 justify-center"
+                        className="  bg-blue-700  hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 p-3 rounded-sm text-white font-semibold hover:bg-transparent hover:border-2 hover:border-black hover:text-black flex items-center gap-2 justify-center"
                       >
                         <FaCloudDownloadAlt />
                         Download
                       </button>
                       <button
                         onClick={() => window.open(product.demoUrl, "_blank")}
-                        className="bg-[#7747ff] p-3 rounded-sm text-white font-semibold hover:bg-transparent hover:border-2 hover:border-black hover:text-black flex items-center gap-2 justify-center"
+                        className="  bg-blue-700  hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 p-3 rounded-sm text-white font-semibold hover:bg-transparent hover:border-2 hover:border-black hover:text-black flex items-center gap-2 justify-center"
                       >
                         <VscPreview size={30} />
                         Live

@@ -1,7 +1,7 @@
 import Order from "../../models/orderSchema.js";
 
 const addOrder = async (req, res) => {
-  console.log(req.body);
+  
   const { userId, products, totalPrice } = req.body;
   if (!userId || !products || !totalPrice) {
     return res.status(500).json({
@@ -45,7 +45,6 @@ const getAllOrders = async (req, res) => {
 };
 
 const getAllUserOrders = async (req, res) => {
-  console.log("ok")
   const orders = await Order.find({ user: req.params.id }).populate("products");
 
   return res.status(200).json({
@@ -56,8 +55,8 @@ const getAllUserOrders = async (req, res) => {
 
 const getOrderById = async (req, res) => {
   const orderId = req.params.id;
-
-  const order = await Order.find({ _id: orderId, user: req.user._id }).populate(
+  const userId = req.params.userId;
+  const order = await Order.find({ _id: orderId, user: userId }).populate(
     "products"
   );
 
