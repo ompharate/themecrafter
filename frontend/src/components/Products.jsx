@@ -2,6 +2,7 @@ import React from "react";
 import Card from "./Card";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { BASE_URL } from "../utils/constants";
+import Loader from "./Loader";
 
 const Products = () => {
   const { data, isLoading } = useQuery({
@@ -26,7 +27,7 @@ const Products = () => {
               themePrice={product.price}
             />
           ))
-        : null}
+        : <Loader/>}
     </div>
   );
 };

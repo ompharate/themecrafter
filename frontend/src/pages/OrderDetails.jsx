@@ -22,7 +22,7 @@ const OrderDetails = () => {
       setLoading(false);
     };
     getOrder();
-    setLoading(false);
+    // setLoading(false);
   }, []);
 
 
